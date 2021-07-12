@@ -1,0 +1,86 @@
+﻿@page "/search"
+
+@uName
+<input type="text" @bind="@uName" />
+<h1></h1>
+
+<button class="btn btn-primary" @onclick="UserSearch">Search</button>
+
+<button class="btn btn-primary" @onclick="LoadResults">Load Table</button>
+<h2></h2>
+
+
+@code {
+    private int count { get; set; }
+    private string uName { get; set; } = "GitHub User Name";
+    private List<string> userList { get; set; } = new List<string>();
+    private int i { get; set; } = Globals.index;
+
+    private async void UserSearch()
+    {
+
+        List<string> userList = await Program.userSearchAsync(uName);
+    }
+    private void LoadResults()
+    {
+        Program.genList();
+
+    }
+    private void nextPage()
+    {
+        Globals.pageNum=Globals.pageNum+1;
+    }
+    private void prevPage()
+    {
+        Globals.pageNum=Globals.pageNum-1;
+    }
+
+
+}
+@if(Globals.count<1)
+{
+<h3 class="p-3 text-center">No Results Found</h3>
+}
+@if(Globals.count>0)
+{
+<div class="container">
+    <h3 class="p-3 text-center">Search Results Sorted by Followers</h3>
+    <p>Search results: @Globals.count</p>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Avatar</th>
+                <th>User Name</th>
+                <th>Page</th>
+                <th>ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Globals.count>0)
+            @for (int i = 0; i < Globals.count; i++)
+                {
+            <tr>
+                <td>
+                    <img src="https://avatars.githubusercontent.com/u/@Globals.idList[i]?v=4" width="50" height="50">
+                </td>
+                <td>
+                    <b>@Globals.userList[i]</b>
+                </td>
+                <td><a href="https://github.com/@Globals.userList[i]">@Globals.userList[i]'s Github Page </a></td>
+                <td>@Globals.idList[i]</td>
+            </tr>
+                }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center">
+    @if(Globals.pageNum>1)
+    {
+    <button class="btn btn-primary" @onclick="prevPage">Previous Page</button>
+    }
+    <b>Page:</b>@Globals.pageNum
+    <button class="btn btn-primary" @onclick="nextPage">Next Page</button>
+</div>
+
+}

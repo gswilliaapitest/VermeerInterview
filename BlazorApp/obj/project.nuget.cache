@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "u8B4e6iBzHtqzEZ6jsS4XqIG/SE+p1fmWCWfmjOnLIKuHxuNDCjuZpDTtVDa5/THWEyCvW3QgDxmrE6hI1WCtw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\gswil\\BlazorApp\\BlazorApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\gswil\\.nuget\\packages\\octokit\\0.50.0\\octokit.0.50.0.nupkg.sha512"
+  ],
+  "logs": []
+}
